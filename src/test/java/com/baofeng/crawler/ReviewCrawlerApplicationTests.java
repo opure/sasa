@@ -50,10 +50,13 @@ public class ReviewCrawlerApplicationTests {
     public void testRedisSave() throws Exception {
 
         // 保存对象
+        for (int i = 0; i < 10 ; i++) {
+
+        }
         ReviewInfo reviewInfo = new ReviewInfo();
         reviewInfo.setCustomerName("123");
         reviewInfo.setFullText("456");
-        redisTemplate.opsForValue().set("123", reviewInfo);
+        redisTemplate.opsForValue().setIfAbsent("123", reviewInfo);
         Assert.assertEquals("123", redisTemplate.opsForValue().get("123").getCustomerName());
     }
 
