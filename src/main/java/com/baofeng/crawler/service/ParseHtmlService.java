@@ -3,8 +3,6 @@ package com.baofeng.crawler.service;
 import com.baofeng.crawler.domain.FetchAsin;
 import org.jsoup.nodes.Element;
 
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.xpath.XPathExpressionException;
 import java.util.List;
 
 /**
@@ -12,5 +10,5 @@ import java.util.List;
  */
 public interface ParseHtmlService {
 
-    List<Element> parseHtmlDate(String html, String url, FetchAsin fetchAsin) throws ParserConfigurationException, XPathExpressionException;
+    List<Element> parseHtmlDate(String html, String url, FetchAsin fetchAsin);
 }

@@ -49,7 +49,7 @@ public class XpathParseImpl implements ParseHtmlService {
             NodeList start = getNodeList(innerHtml, STAR);
             String text = start.item(0).getAttributes().getNamedItem("class").getTextContent();
             //获取评分
-            reviewInfo.setStar(text.substring(text.indexOf("a-star-") + 1, text.indexOf("a-star-") + 2));
+            reviewInfo.setStar(text.substring(text.indexOf("a-star-") + 7, text.indexOf("a-star-") + 8));
             //获取title
             NodeList title = getNodeList(innerHtml, TITLE);
             reviewInfo.setTitle(title.item(0).getTextContent());
@@ -65,7 +65,7 @@ public class XpathParseImpl implements ParseHtmlService {
             reviewInfo.setReviewAsin(element.attr("id"));
             //获取留评姓名
             NodeList customerList = getNodeList(innerHtml, CUSTOMERNAME);
-            reviewInfo.setReviewTime(customerList.item(0).getTextContent());
+            reviewInfo.setCustomerName(customerList.item(0).getTextContent());
             //获取点赞数
             NodeList helpfulCount = getNodeList(innerHtml, HELPFULCOUNT);
             if (helpfulCount.getLength() > 0) {

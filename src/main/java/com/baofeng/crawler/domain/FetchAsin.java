@@ -1,9 +1,6 @@
 package com.baofeng.crawler.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
 
 /**
@@ -23,7 +20,37 @@ public class FetchAsin {
 
     private Date createDate;
 
-    private Date updaDate;
+    @Enumerated(EnumType.STRING)
+    private HandleStatus handleStatus = HandleStatus.WAITING;
+
+    private int priority = 0;
+
+    public int getPriority() {
+        return priority;
+    }
+
+    public void setPriority(int priority) {
+        this.priority = priority;
+    }
+
+    public Date getUpdateDate() {
+        return updateDate;
+    }
+
+    public void setUpdateDate(Date updateDate) {
+        this.updateDate = updateDate;
+    }
+
+    private Date updateDate;
+
+
+    public HandleStatus getHandleStatus() {
+        return handleStatus;
+    }
+
+    public void setHandleStatus(HandleStatus handleStatus) {
+        this.handleStatus = handleStatus;
+    }
 
     public Integer getId() {
         return id;

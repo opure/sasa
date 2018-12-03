@@ -2,6 +2,8 @@ package com.baofeng.crawler.domain;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by opure on 2018/10/25.
@@ -27,6 +29,19 @@ public class ReviewInfo {
     private String reviewUr;
 
     private String customerName;
+
+    @OneToMany()
+    private Set<StarLogs> starLogs = new HashSet<>();
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    private String status;
 
     //1 是 0 不是
     private Integer isVp;

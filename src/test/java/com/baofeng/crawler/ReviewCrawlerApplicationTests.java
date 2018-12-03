@@ -1,11 +1,16 @@
 package com.baofeng.crawler;
 
 import com.baofeng.crawler.domain.FetchAsin;
+import com.baofeng.crawler.domain.ReviewInfo;
 import com.baofeng.crawler.service.FetchAsinRepo;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.SetOperations;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -23,7 +28,52 @@ public class ReviewCrawlerApplicationTests {
     @Autowired
     private FetchAsinRepo fetchAsinRepo;
 
+    @Autowired
+    private RedisTemplate<String, ReviewInfo> redisTemplate;
+
     private String url = "%s/product-reviews/%s/ref=cm_cr_arp_d_paging_btm_1?ie=UTF8&reviewerType=all_reviews&pageNumber=1";
+
+    @Autowired
+    private StringRedisTemplate stringRedisTemplate;
+
+    @Test
+    public void test() throws Exception {
+
+        // 保存字符串
+        stringRedisTemplate.opsForValue().set("aaa", "111");
+        Assert.assertEquals("111", stringRedisTemplate.opsForValue().get("aaa"));
+
+    }
+
+
+    @Test
+    public void testRedisSave() throws Exception {
+
+        // 保存对象
+        ReviewInfo reviewInfo = new ReviewInfo();
+        reviewInfo.setCustomerName("123");
+        reviewInfo.setFullText("456");
+        redisTemplate.opsForValue().set("123", reviewInfo);
+        Assert.assertEquals("123", redisTemplate.opsForValue().get("123").getCustomerName());
+    }
+
+
+    @Test
+    public void testSet() {
+        SetOperations<String, ReviewInfo> setOperations = redisTemplate.opsForSet();
+        for (int i = 0; i < 5; i++) {
+            ReviewInfo reviewInfo = new ReviewInfo();
+            reviewInfo.setCustomerName("123");
+            reviewInfo.setFullText("456");
+            setOperations.add("set1", reviewInfo);
+        }
+        ReviewInfo reviewInfo = new ReviewInfo();
+        reviewInfo.setCustomerName("125");
+        reviewInfo.setFullText("456");
+        setOperations.add("set1", reviewInfo);
+        System.out.println(setOperations.pop("set1"));
+    }
+
 
     @Test
     public void contextLoads() {
