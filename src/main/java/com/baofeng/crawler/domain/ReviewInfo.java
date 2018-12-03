@@ -18,14 +18,56 @@ public class ReviewInfo {
     @Column(length = 2000)
     private String title;
 
+    private String asin;
+
+    private String site;
+
+    private String reviewAsin;
+
+    private String reviewUr;
+
     private String customerName;
 
     //1 是 0 不是
     private Integer isVp;
 
+    public String getAsin() {
+        return asin;
+    }
+
+    public void setAsin(String asin) {
+        this.asin = asin;
+    }
+
+    public String getSite() {
+        return site;
+    }
+
+    public void setSite(String site) {
+        this.site = site;
+    }
+
+    public String getReviewAsin() {
+        return reviewAsin;
+    }
+
+    public void setReviewAsin(String reviewAsin) {
+        this.reviewAsin = reviewAsin;
+    }
+
+    public String getReviewUr() {
+        return reviewUr;
+    }
+
+    public void setReviewUr(String reviewUr) {
+        this.reviewUr = reviewUr;
+    }
 
     @Lob
     private String content;
+
+    @Lob
+    private String fullText;
 
     private String helpfulCount;
 
@@ -98,7 +140,16 @@ public class ReviewInfo {
     }
 
     public String getReviewTime() {
+
         return reviewTime;
+    }
+
+    public String getFullText() {
+        return fullText;
+    }
+
+    public void setFullText(String fullText) {
+        this.fullText = fullText;
     }
 
     public void setReviewTime(String reviewTime) {
