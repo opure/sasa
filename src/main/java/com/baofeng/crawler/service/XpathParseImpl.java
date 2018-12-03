@@ -2,6 +2,7 @@ package com.baofeng.crawler.service;
 
 import com.baofeng.crawler.domain.FetchAsin;
 import com.baofeng.crawler.domain.ReviewInfo;
+import com.baofeng.crawler.domain.StarLogs;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -70,6 +71,9 @@ public class XpathParseImpl implements ParseHtmlService {
             NodeList helpfulCount = getNodeList(innerHtml, HELPFULCOUNT);
             if (helpfulCount.getLength() > 0) {
                 reviewInfo.setHelpfulCount(helpfulCount.item(0).getTextContent());
+                StarLogs starLogs = new StarLogs();
+                starLogs.setStar(helpfulCount.item(0).getTextContent());
+                starLogs.setReviewInfo(reviewInfo);
             }
             reviewInfo.setAsin(fetchAsin.getAsin());
             reviewInfo.setSite(fetchAsin.getWebSite());

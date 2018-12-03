@@ -30,7 +30,7 @@ public class ReviewInfo {
 
     private String customerName;
 
-    @OneToMany()
+    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "reviewInfo")
     private Set<StarLogs> starLogs = new HashSet<>();
 
     public String getStatus() {

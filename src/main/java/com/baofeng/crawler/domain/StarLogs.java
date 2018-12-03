@@ -1,9 +1,6 @@
 package com.baofeng.crawler.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 /**
  * Created by opure on 2018/12/3.
@@ -16,6 +13,17 @@ public class StarLogs {
     private Integer id;
 
     private String star;
+
+    @ManyToOne
+    private ReviewInfo reviewInfo;
+
+    public ReviewInfo getReviewInfo() {
+        return reviewInfo;
+    }
+
+    public void setReviewInfo(ReviewInfo reviewInfo) {
+        this.reviewInfo = reviewInfo;
+    }
 
     public Integer getId() {
         return id;

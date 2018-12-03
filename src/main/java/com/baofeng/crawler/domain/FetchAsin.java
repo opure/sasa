@@ -92,11 +92,6 @@ public class FetchAsin {
         this.createDate = createDate;
     }
 
-    public Date getUpdaDate() {
-        return updaDate;
-    }
 
-    public void setUpdaDate(Date updaDate) {
-        this.updaDate = updaDate;
-    }
+
 }

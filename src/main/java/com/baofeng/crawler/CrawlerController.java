@@ -6,6 +6,7 @@ import com.baofeng.crawler.domain.FetchAsin;
 import com.baofeng.crawler.domain.FetchReviewInfo;
 import com.baofeng.crawler.service.FetchAsinRepo;
 import com.baofeng.crawler.service.ParseHtmlService;
+import com.baofeng.crawler.service.RedisService;
 import com.baofeng.crawler.service.TaskService;
 import okhttp3.*;
 import okhttp3.internal.NamedRunnable;
@@ -38,17 +39,21 @@ public class CrawlerController {
     private ParseHtmlService parseHtmlService;
 
     @Autowired
-    private FetchAsinRepo fetchAsinRepo;
+    private TaskService taskService;
 
     @Autowired
-    private TaskService taskService;
+    private RedisService redisService;
 
     private final OkHttpClient client = new OkHttpClient.Builder()
             .addInterceptor(new UserAgentInterceptor())
             .build();
+
+
     private final Set<HttpUrl> fetchedUrls = Collections.synchronizedSet(
-            new LinkedHashSet<HttpUrl>());
+            new LinkedHashSet<>());
+
     private final LinkedBlockingQueue<FetchReviewInfo> queue = new LinkedBlockingQueue<>();
+
     private final ConcurrentHashMap<String, AtomicInteger> hostnames = new ConcurrentHashMap<>();
 
 
@@ -147,7 +152,7 @@ public class CrawlerController {
         }
     }
 
-    @Scheduled(initialDelay = -1L, fixedDelay = 100000000000000000L)
+    //@Scheduled(initialDelay = -1L, fixedDelay = 100000000000000000L)
     public void startFetch() {
         FetchAsin oneFetchAsin = taskService.getOneFetchAsin();
         if (null == oneFetchAsin) {
